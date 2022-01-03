@@ -42,7 +42,7 @@ const ModelSelect = ({carMakers, modelYears}) => {
                 })
             }
         </select>}
-        {(chosenMaker.MakeId && chosenModel.Model_ID) && <select defaultValue={'Choose Model'} onChange={(e) => setChosenModelYear(e.target.value)} >
+        {(chosenMaker.MakeId && chosenModel.Model_ID) && <select defaultValue={'Choose Year'} onChange={(e) => setChosenModelYear(e.target.value)} >
             <option disabled>Choose Year</option>
             {
                 modelYears.filter(year => year.modelYear !== '9999')
