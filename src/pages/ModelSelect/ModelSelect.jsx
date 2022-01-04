@@ -21,9 +21,8 @@ const ModelSelect = ({carMakers, modelYears}) => {
     }
 
     useEffect(() => {
-        console.log('chosen maker: ',chosenMaker)
+        console.log('render')
         if (chosenMaker.MakeId) getModels()
-        console.log('chosen model: ',chosenModel)
     },[chosenMaker,chosenModel,chosenModelYear])
 
     
@@ -31,13 +30,13 @@ const ModelSelect = ({carMakers, modelYears}) => {
         <select    defaultValue={'Choose Company'} onChange={(e) =>  setChosenMaker(carMakers.find(maker => maker.MakeId === +e.target.value) )}>
             <option disabled>Choose Company</option>
             {
-                carMakers.map(maker => <option key={maker.MakeId} value={maker.MakeId}>{maker.MakeName}</option>)
+                carMakers.sort((a,b) =>  b.MakeName > a.MakeName ? -1 : 1).map(maker => <option key={maker.MakeId} value={maker.MakeId}>{maker.MakeName}</option>)
             }
         </select>
         {chosenMaker.MakeId && <select  defaultValue={'Choose Model'} onChange={(e) => setChosenModel(models.find(model => model.Model_ID === +e.target.value))}>
             <option disabled>Choose Model</option>
             {
-                models.map(model => {
+                models.sort((a,b) => b.Model_Name > a.Model_Name? -1 : 1).map(model => {
                     return <option key={model.Model_ID} value={model.Model_ID}>{model.Model_Name}</option>
                 })
             }
@@ -45,7 +44,7 @@ const ModelSelect = ({carMakers, modelYears}) => {
         {(chosenMaker.MakeId && chosenModel.Model_ID) && <select defaultValue={'Choose Year'} onChange={(e) => setChosenModelYear(e.target.value)} >
             <option disabled>Choose Year</option>
             {
-                modelYears.filter(year => year.modelYear !== '9999')
+                modelYears.sort((a,b) => +a.modelYear - +b.modelYear).filter(year => year.modelYear !== '9999')
                 .map(year => <option key={year.modelYear} value={year.modelYear}>{year.modelYear}</option> )
             }
         </select>  } 

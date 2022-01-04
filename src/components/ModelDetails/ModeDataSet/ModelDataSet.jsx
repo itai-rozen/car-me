@@ -2,22 +2,50 @@ import React, { useState, useEffect } from 'react'
 import carsApi from './../../../scripts/carMakeIdApi.js'
 import './modelDataSet.css'
 
-const ModelDataSet = ({ data, vehicleId, header, setImgUrl }) => {
+const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }) => {
     const [safetyData, setSafetyData] = useState([])
     const [isChecked, setIsChecked] = useState(false)
+    const [dataError, setDataError] = useState('')
+    const [complaintsShown, setComplaintsShown] = useState(5)
+    const [recallsShown, setRecallsShown] = useState(5)
 
+    const increaseDataShow = (isComplaint, length) => {
+        if (isComplaint){
+            if (complaintsShown + 5 < length) setComplaintsShown(complaintsShown+5)
+            else setComplaintsShown(length) 
+        } else {
+            if (recallsShown + 5 < length) setRecallsShown(recallsShown+5)
+            else setRecallsShown(length)
+        }
+    }
     const getSafetyData = async () => {
-        const carSafetyData = await carsApi.getSafetyRatings(vehicleId)
-        console.log('vehicle id @dataset cpt: ', vehicleId)
-        console.log('safety data: ', safetyData)
-        setSafetyData(carSafetyData.data.Results[0])
-        setImgUrl(carSafetyData.data.Results[0].VehiclePicture)
+        setIsLoading(true)
+        try {
+            const carSafetyData = await carsApi.getSafetyRatings(vehicleId)
+            setSafetyData(carSafetyData.data.Results[0])
+            setImgUrl(carSafetyData.data.Results[0].VehiclePicture)
+            setIsLoading(false)
+        } catch(err) {
+            setDataError(err.message)
+        }
+    }
+    const handleChange = () => {
+        setIsChecked(!isChecked)
+        setRecallsShown(5)
+        setComplaintsShown(5)
+    }
+
+    const renderButton = () => {
+        const checkDisable = (header==='Complaints' && complaintsShown === data.length) ||
+                            (header==='Recalls' && recallsShown === data.length)
+        if (header === 'Safety Ratings') return
+        return <button disabled={checkDisable} onClick={() => increaseDataShow(header==='Complaints', data.length)}>show more</button> 
     }
 
     const renderContent = () => {
         if (data) return <div>
             {
-                data.map(result => {
+                data.slice(0,header==='Complaints' ? complaintsShown : recallsShown).map(result => {
                     if (result.dateComplaintFiled) {
                         return <div key={result.odiNumber} className='complaint-container'>
                             <div className="data-field">
@@ -51,6 +79,7 @@ const ModelDataSet = ({ data, vehicleId, header, setImgUrl }) => {
                                 <h5>Summary: </h5>
                                 <p>{result.Summary}</p>
                             </div>
+                          
                         </div>
                     }
                 })
@@ -79,17 +108,24 @@ const ModelDataSet = ({ data, vehicleId, header, setImgUrl }) => {
     useEffect(() => {
         if (vehicleId) getSafetyData()
     }, [vehicleId])
+
     return <div>
-        <header>
-            <input type="checkbox" onChange={() => setIsChecked(!isChecked)} id="" />
+
+        <label htmlFor={cptId}>
+            <input type="checkbox" onChange={() => handleChange()} id={cptId} />
             <h2>{header}</h2>
+            {dataError && <h2>{dataError}</h2> }
             <h3>
                 {data ? `Total: ${data.length}` : `Overall: ${safetyData.OverallRating}`}
             </h3>
-        </header>
+        </label>
         {
             isChecked && renderContent()
         }
+        {
+            isChecked  && renderButton()
+        }
+
     </div>
 }
 

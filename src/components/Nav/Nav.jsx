@@ -4,6 +4,9 @@ import './nav.css'
 
 const Nav = () => {
     return <nav>
+        <Link to="/">
+            <img src="car-logo.png" alt="car logo" />
+        </Link>
         <Link to="/select">
             Select a Model
         </Link>

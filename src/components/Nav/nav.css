@@ -1,0 +1,8 @@
+nav {
+    height: 10vh;
+    position: sticky;
+}
+nav img {
+    height: 100%;
+    margin: 0 20px;
+}
