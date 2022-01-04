@@ -1,0 +1,6 @@
+.log-link {
+    color: red;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: underline;
+}

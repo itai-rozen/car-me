@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './nav.css'
 
-const Nav = () => {
+const Nav = ({currLoggedUser}) => {
     return <nav>
         <Link to="/">
             <img src="car-logo.png" alt="car logo" />
@@ -13,6 +13,10 @@ const Nav = () => {
         <Link to="/user">
             My Models
         </Link>
+        <div className="user-container">
+        <h6>Hello {currLoggedUser.id ? currLoggedUser.userName : 'Guest'}!</h6>
+        {!currLoggedUser.id && <Link to="/user">Login</Link>}
+        </div>
     </nav>
 }
 
