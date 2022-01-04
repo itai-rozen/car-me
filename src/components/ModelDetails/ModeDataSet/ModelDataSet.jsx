@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import carsApi from './../../../scripts/carMakeIdApi.js'
+import { BiRightArrow } from 'react-icons/bi'
 import './modelDataSet.css'
 
 const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }) => {
@@ -36,8 +37,8 @@ const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }
     }
 
     const renderButton = () => {
-        const checkDisable = (header==='Complaints' && complaintsShown === data.length) ||
-                            (header==='Recalls' && recallsShown === data.length)
+        const checkDisable = (header === 'Complaints' && complaintsShown === data.length) ||
+                            (header === 'Recalls' && recallsShown === data.length)
         if (header === 'Safety Ratings') return
         return <button disabled={checkDisable} onClick={() => increaseDataShow(header==='Complaints', data.length)}>show more</button> 
     }
@@ -45,7 +46,7 @@ const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }
     const renderContent = () => {
         if (data) return <div>
             {
-                data.slice(0,header==='Complaints' ? complaintsShown : recallsShown).map(result => {
+                data.slice(0,header === 'Complaints' ? complaintsShown : recallsShown).map(result => {
                     if (result.dateComplaintFiled) {
                         return <div key={result.odiNumber} className='complaint-container'>
                             <div className="data-field">
@@ -113,7 +114,7 @@ const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }
 
         <label htmlFor={cptId}>
             <input type="checkbox" onChange={() => handleChange()} id={cptId} />
-            <h2>{header}</h2>
+            <h2>{header} <span className={`arrow-icon ${isChecked && `rotated`} ` }><BiRightArrow /></span> </h2>
             {dataError && <h2>{dataError}</h2> }
             <h3>
                 {data ? `Total: ${data.length}` : `Overall: ${safetyData.OverallRating}`}

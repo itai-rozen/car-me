@@ -3,8 +3,11 @@ import ModelDetails from '../../components/ModelDetails/ModelDetails'
 import carsApi from './../../scripts/carMakeIdApi'
 import usersApi from '../../scripts/UsersApi'
 import Util from './../../scripts/util'
-import './modelSelect.css'
+import Animated from 'react-mount-animation'
 import Spinner from '../../components/Spinner/Spinner'
+import Select from '../../components/Select/Select'
+import Button from '../../components/Button/Button'
+import './modelSelect.css'
 
 const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
     const [chosenMaker, setChosenMaker] = useState({})
@@ -14,6 +17,7 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
     const [error, setError] = useState('')
     const [message, setMessage] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [isMounted, setIsMounted] = useState(false);
 
     const getModels = async () => {
         const makerModels = Util.loadFromLocalStorage(`${chosenMaker.MakeName}-models`)
@@ -50,67 +54,55 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
             }
             const newFavorites = [...currLoggedUser.favoriteModels, newFavoriteModel]
             currLoggedUser.favoriteModels = newFavorites
-            console.log('new favorites:',newFavorites)
             await usersApi.updateUser(currLoggedUser.id, currLoggedUser)
             setIsLoading(false)
             setMessage('added successfully!')
+            setIsMounted(true)
+            setTimeout(() => {
+                setMessage('')
+                setIsMounted(false)
+            }, 1000);
         } catch (err) {
             setError(err.message)
         }
     }
 
     useEffect(() => {
-        console.log('render')
         if (chosenMaker.MakeId) getModels()
-        setError('')
+        // setError('')
+        console.log('chosen maker: ',chosenMaker)
+        console.log('chosen model: ',chosenModel)
+        console.log('chosen year: ',chosenModelYear)
         setMessage('')
     }, [chosenMaker, chosenModel, chosenModelYear])
 
 
     return <div>
         {isLoading && <Spinner />}
-        {error && <h2>{error}</h2>}
-        <select defaultValue={'Choose Company'} onChange={(e) => setChosenMaker(carMakers.find(maker => maker.MakeId === +e.target.value))}>
-            <option disabled>Choose Company</option>
-            {
-                carMakers.sort((a, b) => b.MakeName > a.MakeName ? -1 : 1).map(maker => <option key={maker.MakeId} value={maker.MakeId}>{maker.MakeName}</option>)
-            }
-        </select>
-        {chosenMaker.MakeId && <select defaultValue={'Choose Model'} onChange={(e) => setChosenModel(models.find(model => model.Model_ID === +e.target.value))}>
-            <option disabled>Choose Model</option>
-            {
-                models
-                    .sort((a, b) => b.Model_Name > a.Model_Name ? -1 : 1)
-                    .map(model => {
-                        return <option key={model.Model_ID}
-                            value={model.Model_ID}>
-                            {model.Model_Name}
-                        </option>
-                    })
-            }
-        </select>
+
+
+        <Select dValue={'Choose Company'} arr={carMakers} setChosenModelYear={setChosenModelYear}  setter={setChosenMaker}
+                optionValue={'MakeId'} optionContent={'MakeName'} setError={setError} />
+
+        {chosenMaker.MakeId && models.length > 0 &&
+        <Select dValue={'Choose Model'} arr={models} setChosenModelYear={setChosenModelYear} setter={setChosenModel}
+                optionValue={'Model_ID'} optionContent={'Model_Name'} setError={setError} />
+
         }
         {
-            (chosenMaker.MakeId &&
-             chosenModel.Model_ID) &&
-            <select defaultValue={'Choose Year'}
-                onChange={(e) => setChosenModelYear(e.target.value)} >
-                <option disabled>Choose Year</option>
-                {
-                    modelYears
-                        .sort((a, b) => +a.modelYear - +b.modelYear)
-                        .filter(year => year.modelYear !== '9999')
-                        .map(year => <option key={year.modelYear} value={year.modelYear}>{year.modelYear}</option>)
-                }
-            </select>
+        (chosenMaker.MakeId &&
+         chosenModel.Model_ID) &&
+        <Select dValue={'Choose Year'} arr={modelYears} setter={setChosenModelYear}
+                optionValue={'modelYear'} optionContent={'modelYear'} setError={setError}/>
         }
         {
             chosenMaker &&
             chosenModel &&
             chosenModelYear &&
             currLoggedUser.id &&
-            <button onClick={() => addModelToUserList()}>add to your models</button>
+            <Button content={'add to your models'} onClickFunction={addModelToUserList} />
         }
+        {error && <h2>{error}</h2>}
         {
             chosenMaker &&
             chosenModel &&
@@ -118,7 +110,7 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
             <ModelDetails maker={chosenMaker} model={chosenModel} year={chosenModelYear} />
         }
 
-        {message && <h3 className='success-msg'>{message}</h3> }
+        {message && <Animated.h3 show={isMounted} mountAnim={`0%{opacity: 0} 100%{opacity:1}`} className='success-msg'>{message}</Animated.h3> }
 
 
     </div>

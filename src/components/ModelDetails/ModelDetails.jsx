@@ -28,6 +28,7 @@ const ModelDetails = ({maker, model, year}) => {
     
     const getComplaints = async () => {
         setIsLoading(true)
+        setComplaints('loading...')
         try {
             const complaintsData = await carsApi.getComplaintsByCar(maker.MakeName,model.Model_Name,year)
             setComplaints(complaintsData.data.results)
@@ -39,6 +40,7 @@ const ModelDetails = ({maker, model, year}) => {
     }
     const getRecalls = async () => {
         setIsLoading(true)
+        setRecalls('loading...')
         try {
             const recallsData = await carsApi.getRecallsByCar(maker.MakeName,model.Model_Name,year)
             setRecalls(recallsData.data.results)
@@ -51,8 +53,8 @@ const ModelDetails = ({maker, model, year}) => {
 
     useEffect(() => {
         getVehicleId()
-        getComplaints()
         getRecalls()
+        getComplaints()
     },[maker,model,year])
 
     return <div>

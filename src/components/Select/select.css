@@ -1,0 +1,15 @@
+.select {
+    padding: 5px 10px;
+    margin: 15px 10px;
+    border-radius: var(--border-radius);
+    border-width: 0 0 3px 0 ;
+    font-size: 1.3rem;
+    max-width: 25%;
+    outline: none;
+}
+
+.select option {
+    font-size: 1rem;
+    border: none;
+    width: 25%;
+}

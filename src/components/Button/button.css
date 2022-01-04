@@ -1,0 +1,16 @@
+.btn {
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    background-color: var(--secondary-color);
+    color: #fff;
+    color: var(--font-color);
+    font-size: 1.2rem;
+    text-shadow: 1px 1px #000;
+    letter-spacing: 1px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    color: #fff;
+}
