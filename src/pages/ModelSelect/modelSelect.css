@@ -1,0 +1,6 @@
+.success-msg {
+    position: absolute;
+    left: 50%;
+    background-color: black;
+    color: white;
+}

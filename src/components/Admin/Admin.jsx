@@ -28,8 +28,8 @@ const Admin = ({ users, getUsers }) => {
             {
                 users.map(user => {
                     return <li key={user.id}>
-                        <p>{user.userName}</p>
-                        <p>{user.userPassword}</p>
+                        <p>username: {user.userName}</p>
+                        <p>password: {user.userPassword}</p>
                         <button onClick={() => remove(user.id)}>delete</button>
                     </li>
                 })
