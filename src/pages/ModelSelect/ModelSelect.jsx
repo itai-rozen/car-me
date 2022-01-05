@@ -23,9 +23,13 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
         const makerModels = Util.loadFromLocalStorage(`${chosenMaker.MakeName}-models`)
         if (makerModels) setModels(makerModels)
         else {
-            const makerModelsFromApi = await carsApi.getModelsForMake(chosenMaker.MakeId)
-            Util.saveToLocalStorage(`${chosenMaker.MakeName}-models`, makerModelsFromApi.data.Results)
-            setModels(makerModelsFromApi.data.Results)
+            try {
+                const makerModelsFromApi = await carsApi.getModelsForMake(chosenMaker.MakeId)
+                Util.saveToLocalStorage(`${chosenMaker.MakeName}-models`, makerModelsFromApi.data.Results)
+                setModels(makerModelsFromApi.data.Results)
+            } catch (err) {
+                setError(err.message)
+            }
         }
     }
 
@@ -37,6 +41,13 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
         })
         console.log('matches: ', matches)
         return matches.length > 0
+    }
+
+    const resetChoices = () => {
+        setChosenMaker({})
+        setChosenModel({})
+        setChosenModelYear('')
+        setError('')
     }
 
     const addModelToUserList = async () => {
@@ -69,48 +80,84 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
 
     useEffect(() => {
         if (chosenMaker.MakeId) getModels()
-        // setError('')
-        console.log('chosen maker: ',chosenMaker)
-        console.log('chosen model: ',chosenModel)
-        console.log('chosen year: ',chosenModelYear)
         setMessage('')
-    }, [chosenMaker, chosenModel, chosenModelYear])
+    }, [chosenMaker, chosenModel, chosenModelYear, error])
+
+
 
 
     return <div>
         {isLoading && <Spinner />}
-
-
-        <Select dValue={'Choose Company'} arr={carMakers} setChosenModelYear={setChosenModelYear}  setter={setChosenMaker}
-                optionValue={'MakeId'} optionContent={'MakeName'} setError={setError} />
-
-        {chosenMaker.MakeId && models.length > 0 &&
-        <Select dValue={'Choose Model'} arr={models} setChosenModelYear={setChosenModelYear} setter={setChosenModel}
-                optionValue={'Model_ID'} optionContent={'Model_Name'} setError={setError} />
-
+        {
+            !chosenMaker.MakeId &&
+            <Select dValue={'Choose Company'}
+                arr={carMakers}
+                error={error}
+                setter={setChosenMaker}
+                optionValue={'MakeId'}
+                optionContent={'MakeName'}
+                setError={setError} />
         }
         {
-        (chosenMaker.MakeId &&
-         chosenModel.Model_ID) &&
-        <Select dValue={'Choose Year'} arr={modelYears} setter={setChosenModelYear}
-                optionValue={'modelYear'} optionContent={'modelYear'} setError={setError}/>
+            !chosenModel.Model_ID &&
+            chosenMaker.MakeId &&
+            models.length > 0 &&
+            <Select dValue={'Choose Model'}
+                arr={models}
+                error={error}
+                setter={setChosenModel}
+                optionValue={'Model_ID'}
+                optionContent={'Model_Name'}
+                setError={setError} />
         }
         {
-            chosenMaker &&
-            chosenModel &&
+            chosenMaker.MakeId &&
+            chosenModel.Model_ID &&
+            !chosenModelYear &&
+            <Select
+                dValue={'Choose Year'}
+                arr={modelYears}
+                error={error}
+                setter={setChosenModelYear}
+                optionValue={'modelYear'}
+                optionContent={'modelYear'}
+                setError={setError} />
+        }
+        {
+            chosenMaker.MakeId &&
+            chosenModel.Model_ID &&
             chosenModelYear &&
             currLoggedUser.id &&
-            <Button content={'add to your models'} onClickFunction={addModelToUserList} />
+            <Button
+                content={'add to your models'}
+                onClickFunction={addModelToUserList} />
         }
         {error && <h2>{error}</h2>}
+        <div className="choices-container">
+            <h5>{chosenMaker.MakeName}</h5>
+            <h5>{chosenModel.Model_Name}</h5>
+            <h5>{chosenModelYear}</h5>
+        </div>
+
+            <Button content={'New search'} onClickFunction={resetChoices} />
         {
-            chosenMaker &&
-            chosenModel &&
+            chosenMaker.MakeId &&
+            chosenModel.Model_ID &&
             chosenModelYear &&
-            <ModelDetails maker={chosenMaker} model={chosenModel} year={chosenModelYear} />
+            <ModelDetails
+                maker={chosenMaker}
+                model={chosenModel}
+                year={chosenModelYear}
+                setError={setError}
+            />
         }
 
-        {message && <Animated.h3 show={isMounted} mountAnim={`0%{opacity: 0} 100%{opacity:1}`} className='success-msg'>{message}</Animated.h3> }
+        {
+            message &&
+            <Animated.h3
+                show={isMounted}
+                mountAnim={`0%{opacity: 0} 100%{opacity:1}`}
+                className='success-msg'>{message}</Animated.h3>}
 
 
     </div>

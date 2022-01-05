@@ -5,13 +5,12 @@ import ModelDataSet from './ModeDataSet/ModelDataSet'
 import './modelDetails.css'
 
 
-const ModelDetails = ({maker, model, year}) => {
+const ModelDetails = ({maker, model, year, setError }) => {
     const [vehicleId,setVehicleId] = useState('')
     const [imgUrl,setImgUrl] = useState('')
     const [recalls,setRecalls] = useState([])
     const [complaints, setComplaints] = useState([])
     const [isLoading, setIsLoading] = useState(false)
-    const [error,setError] = useState('')
 
     const getVehicleId = async () => {
         setIsLoading(true)
@@ -59,7 +58,7 @@ const ModelDetails = ({maker, model, year}) => {
 
     return <div>
         { isLoading && <Spinner />}
-        {error && <h1>{error}</h1>}
+        {/* {error && <h1>{error}</h1>} */}
         <div className="img-container">
         {imgUrl ? <img src={imgUrl} alt={`vehicle: ${maker} ${model} ${year}`}  /> : <h5>image not available</h5> }
         </div>
