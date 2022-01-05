@@ -9,7 +9,7 @@
     color: var(--font-color);
     opacity: 1;
     padding: 12px 20px;
-    line-height: 1.7rem;
+    line-height: 2rem;
     font-size: 1.2rem;
 }
 
@@ -31,5 +31,5 @@
     justify-content: center;
 }
 .img-container img {
-    height: 15em;
+    height: 10em;
 }

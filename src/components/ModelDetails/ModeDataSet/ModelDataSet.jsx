@@ -118,7 +118,7 @@ const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }
 
         <label className='header-label' htmlFor={cptId}>
             <input type="checkbox" onChange={() => handleChange()} id={cptId} />
-            <h2>{header} <span className={`arrow-icon ${isChecked && `rotated`} ` }><BiRightArrow /></span> </h2>
+            <h2 className='primary-label-header'>{header} <span className={`arrow-icon ${isChecked && `rotated`} ` }><BiRightArrow /></span> </h2>
             {dataError && <h2>{dataError}</h2> }
             <h3>
                 {data ? `Total: ${data.length}` : `Overall: ${safetyData.OverallRating}`}

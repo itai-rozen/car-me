@@ -1,3 +1,7 @@
+.content-container h5 {
+    font-size: 1.3rem;
+    margin: 10px 0;
+}
 .arrow-icon {
     display: inline-block;
 }
@@ -8,8 +12,17 @@
 input[type="checkbox"] {
     display: none;
 }
+.primary-label-header {
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+.header-label h3 {
+    margin: 10px 0;
+}
 
-.header-label {
+.model-dataset-container {
     border-bottom: 3px solid #131313;
+    margin: 5px 0;
 }
 

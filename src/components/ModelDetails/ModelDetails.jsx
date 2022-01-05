@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Spinner from '../Spinner/Spinner'
 import carsApi from './../../scripts/carMakeIdApi'
 import ModelDataSet from './ModeDataSet/ModelDataSet'
@@ -66,6 +67,9 @@ const ModelDetails = ({maker, model, year, setError }) => {
         <ModelDataSet header={'Complaints'} data={complaints} cptId={"id1"} />
         <ModelDataSet header={'Recalls'} data={recalls} cptId={"id2"} />
         <ModelDataSet header={'Safety Ratings'} cptId={"id3"} setImgUrl={setImgUrl} setIsLoading={setIsLoading} vehicleId={vehicleId} />
+        <Link to={{pathname:`https://www.edmunds.com/${maker.MakeName}/${model.Model_Name}/${year}/review/`}}>
+        Reviews
+        </Link>
         </div>
     </div>
 }
