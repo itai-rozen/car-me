@@ -1,13 +1,27 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './homepage.css'
 
 const Homepage = () => {
     return <div className='homepage-container'>
+        <div className="center-container">
+
         <div className="about">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, iure expedita rem delectus illum quos, ducimus aperiam provident facilis, nam adipisci! Sed repudiandae quod corporis, quis nesciunt facilis veritatis hic dignissimos adipisci iusto voluptate, dolorem perferendis earum sapiente fuga nostrum labore odio quae quisquam! Sunt voluptates deleniti amet nulla ducimus, soluta animi necessitatibus in repudiandae laborum consequatur perspiciatis, iste a sit. Perferendis facere necessitatibus sint eligendi aperiam, saepe eum voluptatum iure fuga repellat voluptatem voluptas quod reiciendis numquam impedit nostrum ipsam a iusto aspernatur. Delectus ad dolore iure eos atque vero libero, ipsam a error provident architecto, aspernatur, ex perspiciatis.
+            <h1>Car Me</h1>
+            <div className="secondary-header-container">
+            <h2>Helping you find your next car</h2> 
+                <h2>with minimum effort.</h2>
+            </div>
         </div>
-        <aside className='instructions'></aside>
-        <footer></footer>
+        <aside className='aside'>
+            <div className="description">
+            Find complaints, recalls, safety ratings & reviews on your next car.
+                Start <Link to="/select"> browsing our database</Link>. <br /> <br />  you can also <Link to="/user">Sign in </Link> 
+                and manage your favorite models. 
+            </div>
+        </aside>
+        </div>
+
     </div>
 }
 

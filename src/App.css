@@ -14,7 +14,7 @@
 
 :root {
   --primary-color: #780000;
-  --secondary-color: #669BBC;
+  --secondary-color: #e9c46a;
   --font-color: #FDF0D5;
   --border-radius: 10px;
 }
@@ -22,4 +22,33 @@
 a {
   text-decoration: none;
   color: var(--font-color);
+}
+
+.fade {
+  animation: fade-in 0.5s ease-in;
+}
+
+.stretch {
+  animation: stretch 0.5s ease-in;
+}
+
+.accordion {
+  animation: accordion 0.5s ease-in;
+}
+
+@keyframes fade-in {
+  0% { opacity: 0 }
+  100% { opacity: 1;}
+}
+
+
+
+@keyframes stretch {
+  0% { transform: scale(0);}
+  100% {transform: scale(1);}
+}
+
+@keyframes accordion {
+  0% {max-height: 0;}
+  100% {max-height: 1000vh;}
 }

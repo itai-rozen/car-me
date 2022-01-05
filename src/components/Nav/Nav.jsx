@@ -1,12 +1,26 @@
-import React from 'react'
+import React, {useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import './nav.css'
 
-const Nav = ({currLoggedUser}) => {
+const Nav = ({currLoggedUser, setCurrLoggedUser}) =>  {
+    const [greet, setGreet] = useState('Good morning ')
+    const greeting = () => {
+        const hourTime = new Date().getHours()
+        if (hourTime < 12 && hourTime > 5) setGreet('Good morning ')
+        else if (hourTime > 12 && hourTime < 18) setGreet('Good afternoon ')
+        else if (hourTime >= 18 && hourTime < 23) setGreet('Good evening ')
+        else setGreet('Good night')
+    }
+    useEffect(() => {
+        greeting()
+    },[])
     return <nav>
+        <div className="logo-container">
         <Link to="/">
             <img src="car-logo.png" alt="car logo" />
         </Link>
+        <h6 className='greet'>{greet} {currLoggedUser.id ? currLoggedUser.userName : ' Guest'}!</h6>
+        </div>
         <Link to="/select">
             Select a Model
         </Link>
@@ -14,8 +28,7 @@ const Nav = ({currLoggedUser}) => {
             My Models
         </Link>
         <div className="user-container">
-        <h6>Hello {currLoggedUser.id ? currLoggedUser.userName : 'Guest'}!</h6>
-        {!currLoggedUser.id && <Link to="/user">Login</Link>}
+        {!currLoggedUser.id ? <Link to="/user">Login</Link> : <span onClick={() => setCurrLoggedUser({})}>Logout</span>}
         </div>
     </nav>
 }

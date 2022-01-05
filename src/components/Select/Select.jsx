@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import './select.css'
 
 const Select = ({ dValue, arr, setter, optionValue, optionContent }) => {
-
+    const [mounted,setMounted] = useState(false)
     const onChangeFunction = e => {
         if (optionValue === 'modelYear') {
             setter(e.target.value)
@@ -13,9 +13,13 @@ const Select = ({ dValue, arr, setter, optionValue, optionContent }) => {
         }
     }
 
+    useEffect(() => {
+        setMounted(true)
 
+        return () => setMounted(false)
+    },[])
 
-    return <select className='select' defaultValue={dValue}
+    return <select className={`select ${mounted && 'fade'}`} defaultValue={dValue}
         onChange={onChangeFunction}>
 
         <option disabled>{dValue}</option>

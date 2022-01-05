@@ -49,7 +49,7 @@ function App() {
       <BrowserRouter>
       <Nav currLoggedUser={currLoggedUser} setCurrLoggedUser={setCurrLoggedUser} />
       <Routes>
-        <Route path="/"  element={<Homepage carMakers={makerIds} />} />
+        <Route path="/"  element={<Homepage />} />
         <Route path="/select" element={<ModelSelect currLoggedUser={currLoggedUser} modelYears={modelYears} carMakers={makerIds} />} />
         <Route path="/user" element={<MySelections 
                                       getUsers={getUsers}
