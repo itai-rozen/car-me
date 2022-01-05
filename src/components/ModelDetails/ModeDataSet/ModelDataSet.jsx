@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import carsApi from './../../../scripts/carMakeIdApi.js'
 import { BiRightArrow } from 'react-icons/bi'
 import './modelDataSet.css'
+import Button from '../../Button/Button.jsx'
 
 const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }) => {
     const [safetyData, setSafetyData] = useState([])
@@ -39,16 +40,18 @@ const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }
     const renderButton = () => {
         const checkDisable = (header === 'Complaints' && complaintsShown === data.length) ||
                             (header === 'Recalls' && recallsShown === data.length)
+
+        
         if (header === 'Safety Ratings') return
-        return <button disabled={checkDisable} onClick={() => increaseDataShow(header==='Complaints', data.length)}>show more</button> 
+        return <Button content={"Show more"} disableFunc={checkDisable} onClickFunction={increaseDataShow} params={[header==='Complaints',data.length]} />
     }
 
     const renderContent = () => {
-        if (data) return <div>
+        if (data) return <div className={`content-container ${isChecked && 'accordion'}`}>
             {
                 data.slice(0,header === 'Complaints' ? complaintsShown : recallsShown).map(result => {
                     if (result.dateComplaintFiled) {
-                        return <div key={result.odiNumber} className='complaint-container'>
+                        return <div key={result.odiNumber} className='complaint-container dataset'>
                             <div className="data-field">
                                 <h5>Vehicle Component: </h5>
                                 <p>{result.components}</p>
@@ -63,7 +66,7 @@ const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }
                             </div>
                         </div>
                     } else {
-                        return <div key={result.NHTSACampaignNumber} className='recall-container'>
+                        return <div key={result.NHTSACampaignNumber} className='recall-container dataset'>
                             <div className="data-field">
                                 <h5>Vehicle Component: </h5>
                                 <p>{result.Component}</p>
@@ -86,7 +89,7 @@ const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }
                 })
             }
         </div>
-        else return <div className='rating-container'>
+        else return <div className='rating-container dataset'>
             <div className="data-field">
                 <h5>Driver front Side: </h5>
                 <p>{safetyData.FrontCrashDriversideRating}</p>
@@ -111,9 +114,9 @@ const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }
     // eslint-disable-next-line
     }, [vehicleId])
 
-    return <div>
+    return <div className='model-dataset-container'>
 
-        <label htmlFor={cptId}>
+        <label className='header-label' htmlFor={cptId}>
             <input type="checkbox" onChange={() => handleChange()} id={cptId} />
             <h2>{header} <span className={`arrow-icon ${isChecked && `rotated`} ` }><BiRightArrow /></span> </h2>
             {dataError && <h2>{dataError}</h2> }

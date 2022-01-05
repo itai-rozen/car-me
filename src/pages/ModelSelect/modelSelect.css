@@ -3,8 +3,11 @@
     flex-direction: column;
     align-items: center;
     min-height: 90vh;
-    background: url('./../../../public/select-bg.jpg') no-repeat bottom center/cover;
-
+    width: 100%;
+    overflow-x: hidden;
+    background: url('./../../../public/select3-bg.jpg') repeat-y center center/cover;
+    background-repeat: repeat-y;
+    
 }
 
 .select-bar-container {

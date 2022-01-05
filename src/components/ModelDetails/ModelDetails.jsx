@@ -57,15 +57,16 @@ const ModelDetails = ({maker, model, year, setError }) => {
     // eslint-disable-next-line
     },[maker,model,year])
 
-    return <div>
+    return <div className='model-details-container'>
         { isLoading && <Spinner />}
-        {/* {error && <h1>{error}</h1>} */}
         <div className="img-container">
-        {imgUrl ? <img src={imgUrl} alt={`vehicle: ${maker} ${model} ${year}`}  /> : <h5>image not available</h5> }
+        {imgUrl ? <img src={imgUrl} alt={`vehicle: ${maker.MakeName} ${model.Model_Name} ${year}`}  /> : <h5>image not available</h5> }
         </div>
+        <div className="datasets-container">
         <ModelDataSet header={'Complaints'} data={complaints} cptId={"id1"} />
         <ModelDataSet header={'Recalls'} data={recalls} cptId={"id2"} />
         <ModelDataSet header={'Safety Ratings'} cptId={"id3"} setImgUrl={setImgUrl} setIsLoading={setIsLoading} vehicleId={vehicleId} />
+        </div>
     </div>
 }
 

@@ -1,3 +1,15 @@
-.rotated {
-    transform: rotate(45deg);
+.arrow-icon {
+    display: inline-block;
 }
+.rotated {
+    transform: rotate(90deg);
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+.header-label {
+    border-bottom: 3px solid #131313;
+}
+

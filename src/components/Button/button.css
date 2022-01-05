@@ -14,3 +14,7 @@
     opacity: 0.9;
     color: #790101;
 }
+
+.btn:disabled, btn[disabled] {
+    opacity: 0.5;
+}
