@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import Animated from 'react-mount-animation'
+import React from 'react'
 import './select.css'
 
 const Select = ({ dValue, arr, setter, optionValue, optionContent }) => {
 
-    const [isMounted, setIsMounted] = useState(false);
     const onChangeFunction = e => {
         if (optionValue === 'modelYear') {
             setter(e.target.value)
@@ -15,18 +13,10 @@ const Select = ({ dValue, arr, setter, optionValue, optionContent }) => {
         }
     }
 
-    useEffect(() => {
-        setIsMounted(true)
-    }, [])
 
-    return <Animated.select className='select' defaultValue={dValue}
-        onChange={onChangeFunction}
-        show={isMounted}
-        mountAnim={` 
-                   0% {opacity: 0}
-                   100% {opacity: 1}
-               `}
-        time={0.5}>
+
+    return <select className='select' defaultValue={dValue}
+        onChange={onChangeFunction}>
 
         <option disabled>{dValue}</option>
         {
@@ -43,7 +33,7 @@ const Select = ({ dValue, arr, setter, optionValue, optionContent }) => {
                         return <option key={item[optionValue]} value={item[optionValue]}>{item[optionContent]}</option>
                     })
         }
-    </Animated.select>
+    </select>
 }
 
 export default Select
