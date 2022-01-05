@@ -83,6 +83,7 @@ const Form = ({  getUsers,loginStatus, setCurrLoggedUser,setLoginStatus ,users})
         setError('')
         setMessage('')
         inputRef.current.focus()
+    // eslint-disable-next-line
     },[loginStatus])
     
     return <div className='form-container'>

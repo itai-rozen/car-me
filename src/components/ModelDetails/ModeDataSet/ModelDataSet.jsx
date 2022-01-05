@@ -108,6 +108,7 @@ const ModelDataSet = ({ cptId,data, vehicleId, header, setImgUrl, setIsLoading }
 
     useEffect(() => {
         if (vehicleId) getSafetyData()
+    // eslint-disable-next-line
     }, [vehicleId])
 
     return <div>

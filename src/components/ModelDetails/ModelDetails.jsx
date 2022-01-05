@@ -54,6 +54,7 @@ const ModelDetails = ({maker, model, year, setError }) => {
         getVehicleId()
         getRecalls()
         getComplaints()
+    // eslint-disable-next-line
     },[maker,model,year])
 
     return <div>

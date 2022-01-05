@@ -13,7 +13,7 @@ const Spinner = () => {
                             0% { opacity:0 }
                             100% { opacity:1 }
                          `}>
-        <img className="spinner" src='spinner.png' />
+        <img className="spinner" src='spinner.png' alt='car wheel loader' />
     </Animated.div>
 }
 

@@ -80,6 +80,7 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
 
     useEffect(() => {
         if (chosenMaker.MakeId) getModels()
+    // eslint-disable-next-line
     }, [chosenMaker, chosenModel, chosenModelYear,currLoggedUser])
 
 

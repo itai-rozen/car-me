@@ -23,6 +23,7 @@ const UserSelections = ({currLoggedUser,getUsers}) => {
     useEffect(() => {
         console.log('current logged user: ',currLoggedUser)
         getUsers()
+    // eslint-disable-next-line
     },[])
     return <div>
         <h2>{currLoggedUser.userName}'s model list</h2>
