@@ -17,7 +17,6 @@ const Select = ({ dValue, arr, setter, optionValue, optionContent }) => {
 
     useEffect(() => {
         setIsMounted(true)
-        return () => setIsMounted(false)
     }, [])
 
     return <Animated.select className='select' defaultValue={dValue}
@@ -26,7 +25,9 @@ const Select = ({ dValue, arr, setter, optionValue, optionContent }) => {
         mountAnim={` 
                    0% {opacity: 0}
                    100% {opacity: 1}
-               `}>
+               `}
+        time={0.5}>
+
         <option disabled>{dValue}</option>
         {
             (optionValue !== 'modelYear') ?

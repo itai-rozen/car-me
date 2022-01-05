@@ -1,13 +1,13 @@
-import React, { ueState, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import ModelDetails from '../../components/ModelDetails/ModelDetails'
 import carsApi from './../../scripts/carMakeIdApi'
 import usersApi from '../../scripts/UsersApi'
 import Util from './../../scripts/util'
-import Animated from 'react-mount-animation'
 import Spinner from '../../components/Spinner/Spinner'
 import Select from '../../components/Select/Select'
 import Button from '../../components/Button/Button'
 import './modelSelect.css'
+import Message from '../../components/Message/Message'
 
 const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
     const [chosenMaker, setChosenMaker] = useState({})
@@ -17,7 +17,7 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
     const [error, setError] = useState('')
     const [message, setMessage] = useState('')
     const [isLoading, setIsLoading] = useState(false)
-    const [isMounted, setIsMounted] = useState(false);
+
 
     const getModels = async () => {
         const makerModels = Util.loadFromLocalStorage(`${chosenMaker.MakeName}-models`)
@@ -34,9 +34,10 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
     }
 
     const checkDuplicate = () => {
+        console.log('favorites: ',currLoggedUser.favoriteModels)
         const matches = currLoggedUser.favoriteModels.filter(favorite => {
-            return (favorite.maker === chosenMaker &&
-                favorite.model === chosenModel &&
+            return (favorite.maker === chosenMaker.MakeName &&
+                favorite.model === chosenModel.Model_Name &&
                 favorite.year === chosenModelYear)
         })
         console.log('matches: ', matches)
@@ -68,10 +69,9 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
             await usersApi.updateUser(currLoggedUser.id, currLoggedUser)
             setIsLoading(false)
             setMessage('added successfully!')
-            setIsMounted(true)
             setTimeout(() => {
                 setMessage('')
-                setIsMounted(false)
+
             }, 1000);
         } catch (err) {
             setError(err.message)
@@ -80,14 +80,17 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
 
     useEffect(() => {
         if (chosenMaker.MakeId) getModels()
-        setMessage('')
-    }, [chosenMaker, chosenModel, chosenModelYear, error])
+    }, [chosenMaker, chosenModel, chosenModelYear,currLoggedUser])
 
 
 
 
-    return <div>
+    return <div className='model-select-container'>
         {isLoading && <Spinner />}
+        <div className="select-bar-container">
+
+            <div className="select-input-container">
+
         {
             !chosenMaker.MakeId &&
             <Select dValue={'Choose Company'}
@@ -123,6 +126,7 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
                 optionContent={'modelYear'}
                 setError={setError} />
         }
+        </div>
         {
             chosenMaker.MakeId &&
             chosenModel.Model_ID &&
@@ -134,12 +138,14 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
         }
         {error && <h2>{error}</h2>}
         <div className="choices-container">
-            <h5>{chosenMaker.MakeName}</h5>
-            <h5>{chosenModel.Model_Name}</h5>
-            <h5>{chosenModelYear}</h5>
+        {chosenMaker.MakeName &&  <h5>{chosenMaker.MakeName}</h5>}
+        {chosenModel.Model_Name && <h5>{chosenModel.Model_Name}</h5>}
+        {chosenModelYear &&  <h5>{chosenModelYear}</h5>}
         </div>
 
             <Button content={'New search'} onClickFunction={resetChoices} />
+        </div>
+
         {
             chosenMaker.MakeId &&
             chosenModel.Model_ID &&
@@ -154,10 +160,8 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
 
         {
             message &&
-            <Animated.h3
-                show={isMounted}
-                mountAnim={`0%{opacity: 0} 100%{opacity:1}`}
-                className='success-msg'>{message}</Animated.h3>}
+            <Message content={message} />
+        }
 
 
     </div>
