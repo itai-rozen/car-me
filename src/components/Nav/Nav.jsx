@@ -28,7 +28,7 @@ const Nav = ({currLoggedUser, setCurrLoggedUser}) =>  {
             My Models
         </Link>
         <div className="user-container">
-        {!currLoggedUser.id ? <Link to="/user">Login</Link> : <span onClick={() => setCurrLoggedUser({})}>Logout</span>}
+        {!currLoggedUser.id ? <Link to="/user">Login</Link> : <span onClick={() => setCurrLoggedUser({} )}>Logout</span>}
         </div>
     </nav>
 }

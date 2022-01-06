@@ -24,6 +24,10 @@ a {
   color: var(--font-color);
 }
 
+ul {
+  list-style: none;
+}
+
 .fade {
   animation: fade-in 0.5s ease-in;
 }

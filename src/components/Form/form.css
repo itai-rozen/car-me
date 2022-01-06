@@ -16,6 +16,10 @@
     justify-content: space-between;
     align-items: center;
     font-size: 2rem;
+    background-color: var(--secondary-color);
+    padding: 10px 20px;
+    border: 10px solid var(--primary-color);
+    border-radius: var(--border-radius);
 }
 
 .error-container {
@@ -32,4 +36,33 @@
 }
 .form-label {
     display: block;
+}
+
+input[type="submit" ]{
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    background-color: var(--primary-color);
+    color: var(--font-color);
+    border-radius: var(--border-radius);
+}
+
+@media (max-width: 700px) {
+    .login-form {
+        height: 85vh;
+        font-size: 1rem;
+        width: 80%;
+        justify-self: end;
+    }
+    .btn-container {
+        display: flex;
+    }
+
+    .login-form button, .login-form input[type="submit"] {
+        padding: 5px 10px;
+    }
+    .login-form input {
+        width: 80%;    
+        font-size: 1rem;
+        padding: 1px 2px;
+    }
 }

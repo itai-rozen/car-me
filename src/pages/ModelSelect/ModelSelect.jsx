@@ -137,7 +137,7 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
                 content={'add to your models'}
                 onClickFunction={addModelToUserList} />
         }
-        {error && <h2>{error}</h2>}
+        {error && <h2 className='error'>{error}</h2>}
         <div className="choices-container">
         {chosenMaker.MakeName &&  <h5>{chosenMaker.MakeName}</h5>}
         {chosenModel.Model_Name && <h5>{chosenModel.Model_Name}</h5>}

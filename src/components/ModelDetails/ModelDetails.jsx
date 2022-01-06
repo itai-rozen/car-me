@@ -67,9 +67,9 @@ const ModelDetails = ({maker, model, year, setError }) => {
         <ModelDataSet header={'Complaints'} data={complaints} cptId={"id1"} />
         <ModelDataSet header={'Recalls'} data={recalls} cptId={"id2"} />
         <ModelDataSet header={'Safety Ratings'} cptId={"id3"} setImgUrl={setImgUrl} setIsLoading={setIsLoading} vehicleId={vehicleId} />
-        <Link to={{pathname:`https://www.edmunds.com/${maker.MakeName}/${model.Model_Name}/${year}/review/`}}>
-        Reviews
-        </Link>
+        <a  target="_blank" rel="noreferrer noopene" href={`https://www.edmunds.com/${maker.MakeName}/${model.Model_Name}/${year}/review/`}>
+        Reviews (external link)
+        </a>
         </div>
     </div>
 }

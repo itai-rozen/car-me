@@ -26,7 +26,34 @@ nav span {
     color: var(--font-color);
     cursor: pointer;
 }
+.user-container {
+    margin: 0 5px;
+}
 .greet {
     color: #ededed;
     font-size: 1rem;
+}
+
+@media (max-width: 850px) {
+    nav {
+        font-size: 1rem;
+        justify-content: space-evenly;
+    }
+    .greet {
+        font-size: 0.6rem;
+        width: 70px;
+    }
+
+    nav img {
+        height: 4rem;
+    }
+}
+
+@media (max-width: 500px) {
+    nav {
+        font-size: 0.7rem;
+    }
+    nav a {
+        margin: 5px;
+    }
 }

@@ -68,3 +68,17 @@
     background-color: #141414;
     height: 10%;
 }
+
+@media (max-width:650px) {
+    .center-container {
+        display: flex;
+        flex-direction: column;
+    }
+    .about {
+        height: 70%;
+    }
+    .aside {
+        height: 30%;
+        padding: 5px;
+    }
+}

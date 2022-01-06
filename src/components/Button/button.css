@@ -1,11 +1,11 @@
 .btn {
     cursor: pointer;
     padding: 10px 15px;
+    font-size: 1.2rem;
     border-radius: var(--border-radius);
     background-color: var(--secondary-color);
     color: var(--font-color);
     color: var(--primary-color);
-    font-size: 1.2rem;
     font-weight: 600;
     letter-spacing: 1.3px;
     margin: 5px ;

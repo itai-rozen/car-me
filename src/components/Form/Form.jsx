@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import usersApi from '../../scripts/UsersApi'
+import Button from '../Button/Button'
 import Spinner from '../Spinner/Spinner'
 import './form.css'
 
@@ -89,10 +90,7 @@ const Form = ({  getUsers,loginStatus, setCurrLoggedUser,setLoginStatus ,users})
     return <div className='form-container'>
     { isLoading && <Spinner />}
     <form className='login-form' onSubmit={(e) => handleSubmit(e)}>
-        <div className="error-container">
-        { <h5 className='form-error'>{error}</h5> }
-        { <h5 className='form-message'>{message}</h5> }
-        </div>
+
         <label className='form-label' htmlFor="username">User name</label>
         <input ref={inputRef} value={username} onChange={(e) => setUserName(e.target.value)} type="text" id="username" />
         
@@ -104,7 +102,14 @@ const Form = ({  getUsers,loginStatus, setCurrLoggedUser,setLoginStatus ,users})
             <input onChange={(e) => setRePassword(e.target.value)} value={rePassword} type="password" id="re-pass" />
             </>
         }
+        <div className="btn-container">
         <input type="submit" value={loginStatus === 'signup'? 'Sign up' : 'Login'} />
+        <Button content={'cancel'} onClickFunction={setLoginStatus} params={['']} />
+        </div>
+        <div className="error-container">
+        { <h5 className='form-error'>{error}</h5> }
+        { <h5 className='form-message'>{message}</h5> }
+        </div>
     </form>
     </div>
 

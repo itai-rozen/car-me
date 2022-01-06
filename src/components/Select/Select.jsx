@@ -28,7 +28,7 @@ const Select = ({ dValue, arr, setter, optionValue, optionContent }) => {
                 arr
                     .sort((a, b) => b[optionContent].toUpperCase() > a[optionContent].toUpperCase() ? -1 : 1)
                     .map(item => {
-                        return <option key={item[optionValue]} value={item[optionValue]}>{item[optionContent]}</option>
+                        return  <option key={item[optionValue]} value={item[optionValue]}>{item[optionContent]}</option>
                     }) :
                 arr
                     .filter(item => item.modelYear !== '9999')

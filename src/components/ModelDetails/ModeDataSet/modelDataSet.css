@@ -26,3 +26,11 @@ input[type="checkbox"] {
     margin: 5px 0;
 }
 
+@media (max-width:500px) {
+    .dataset h5, .data-field > *, .header-label h2 {
+        font-size: 1rem;
+    }
+    .error {
+        font-size: 1rem;
+    }
+}

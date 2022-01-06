@@ -7,7 +7,7 @@
     overflow-x: hidden;
     background: url('./../../../public/select3-bg.jpg') repeat-y center center/cover;
     background-repeat: repeat-y;
-    
+
 }
 
 .select-bar-container {
@@ -43,3 +43,13 @@
     border-radius: var(--border-radius);
 }
 
+@media (max-width:800px) {
+    .model-select-container button {
+        font-size: 0.8rem;
+        padding: 4px 8px;
+    }
+
+    .select-bar-container {
+        height: 30vh;
+    }
+}

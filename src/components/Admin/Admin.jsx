@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import usersApi from '../../scripts/UsersApi'
+import Button from '../Button/Button'
 import Spinner from '../Spinner/Spinner'
+import { BsTrash } from 'react-icons/bs'
 import './admin.css'
 
 const Admin = ({ users, getUsers }) => {
@@ -19,18 +21,19 @@ const Admin = ({ users, getUsers }) => {
         }
     }
 
-    return <div className='admin-container'>
-        <h2>Admin Page - Manage your users</h2>
+    return <div className='user-selection-container'>
+        <h2 className='user-header'>Admin Page - Manage your users</h2>
         {error && <h3>{error}</h3>}
         {isLoading && <Spinner />}
-        <ul>
+        <ul className='admin user-list'>
 
             {
                 users.map(user => {
-                    return <li key={user.id}>
+                    return <li className='user-item' key={user.id}>
                         <p>username: {user.userName}</p>
                         <p>password: {user.userPassword}</p>
-                        <button onClick={() => remove(user.id)}>delete</button>
+                        <Button onClickFunction={remove} params={[user.id]} content={<BsTrash />} />
+                        {/* <button onClick={() => remove(user.id)}>delete</button> */}
                     </li>
                 })
             }
