@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Spinner from '../Spinner/Spinner'
 import carsApi from './../../scripts/carMakeIdApi'
 import ModelDataSet from './ModeDataSet/ModelDataSet'
