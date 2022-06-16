@@ -1,4 +1,5 @@
-# CarKnowledge (aka "car-me") is an app that gathers car complaints, recalls, safety ratings & reviews by user inputs. Made with React, js, css
+# CarKnowledge (aka "car-me") -  an app that gathers car complaints, recalls, safety ratings & reviews by user inputs. 
+## Made with React, js, css
 ### live demo : https://car-me.netlify.app/
 
 ### Apis used
