@@ -34,13 +34,11 @@ const ModelSelect = ({ carMakers, currLoggedUser, modelYears }) => {
     }
 
     const checkDuplicate = () => {
-        console.log('favorites: ',currLoggedUser.favoriteModels)
         const matches = currLoggedUser.favoriteModels.filter(favorite => {
             return (favorite.maker === chosenMaker.MakeName &&
                 favorite.model === chosenModel.Model_Name &&
                 favorite.year === chosenModelYear)
         })
-        console.log('matches: ', matches)
         return matches.length > 0
     }
 

@@ -24,7 +24,6 @@ function App() {
   const getModelYears = async () => {
     const years = await carsApi.getModelYears()
     Util.saveToLocalStorage('model-years',years.data.results)
-    console.log('years: ',years)
   }
 
   const getUsers = async () => {
@@ -33,7 +32,6 @@ function App() {
   }
 
   useEffect(() => {
-    console.log('render @App')
     const ids = Util.loadFromLocalStorage('car-maker-ids')
     if (ids) setMakerIds(ids) 
     else  getIds()

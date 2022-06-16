@@ -7,7 +7,6 @@ const Select = ({ dValue, arr, setter, optionValue, optionContent }) => {
         if (optionValue === 'modelYear') {
             setter(e.target.value)
         } else {
-            console.log('chosen model: ', arr.find(item => item[optionValue] === +e.target.value))
             const chosen = arr.find(item => item[optionValue] === +e.target.value)
             setter(chosen)
         }

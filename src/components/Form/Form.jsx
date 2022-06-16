@@ -77,7 +77,6 @@ const Form = ({  getUsers,loginStatus, setCurrLoggedUser,setLoginStatus ,users})
     }
 
     useEffect(() => {
-        console.log('users:',users)
         setPassword('')
         setUserName('')
         setRePassword('')

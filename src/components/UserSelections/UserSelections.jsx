@@ -23,7 +23,6 @@ const UserSelections = ({currLoggedUser,getUsers}) => {
         }
     }
     useEffect(() => {
-        console.log('current logged user: ',currLoggedUser)
         getUsers()
     // eslint-disable-next-line
     },[])
